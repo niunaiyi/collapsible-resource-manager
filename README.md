@@ -174,16 +174,6 @@ RawResource::make([
 ]);
 ```
 
-#### WidgetResource
-
-If you use [Nova Dashboard](https://github.com/dcasia/nova-dashboard), you can also use `WidgetResource` to link a dashboard to resource manager calling:
-
-```php
-use DigitalCreative\NovaDashboard\WidgetResource
-
-WidgetResource::make(MainDashboard::class)->label('Reports')->canSee(fn() => true)),
-```
-
 # Authorization
 
 All the resources uses `AuthorizedToSee` nova trait therefor they behave like tools and cards, 
@@ -191,7 +181,7 @@ where you can chain `canSee` to determine if the current logged in user is allow
 
 ```php
 Group::make(...)->canSee(function($request) {
-    return false;
+    return true/false;
 });
 ```
 

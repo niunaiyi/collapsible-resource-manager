@@ -4,8 +4,9 @@
 
         <component v-if="data.label && isTopLevel" v-bind="topLevelLink"
                    @click="toggleTopLevel"
-                   :class="{ 'cursor-pointer': isTopCollapsible }"
-                   class="flex flex-1 items-center font-normal text-white mb-2 text-base no-underline relative">
+                   :class="{ 'cursor-pointer': isTopCollapsible, 'select_light': isShow }"
+                   style="cursor: pointer;"
+                   class="flex flex-1 items-center font-normal text-white mb-2 text-base no-underline relative dim">
 
             <div v-if="data.icon" class="sidebar-icon" v-html="data.icon"/>
 
@@ -24,9 +25,20 @@
 
             </Badge>
 
+
+            <svg v-if="!isShow" style="margin-right: 0; width: 1rem; height:1rem;" t="1602317232981" class="sidebar-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8364">
+                <path d="M275.2 6.4c6.4 0 19.2 0 25.6 6.4l473.6 473.6c6.4 6.4 6.4 12.8 6.4 25.6 0 6.4-6.4 19.2-6.4 25.6l-473.6 473.6c-12.8 12.8-32 12.8-44.8 0-12.8-12.8-12.8-32 0-44.8L704 512 256 64C243.2 51.2 243.2 32 256 19.2c0-12.8 12.8-12.8 19.2-12.8z" fill="var(--sidebar-icon)" p-id="8365">
+                </path>
+            </svg>
+
+            <svg v-else style="margin-right: 0; width: 1rem; height:1rem;" t="1602317859146" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8509">
+                <path d="M512 680.521143l-374.491429-411.794286a36.571429 36.571429 0 0 0-55.588571 47.616l404.918857 447.268572a36.571429 36.571429 0 0 0 57.563429-2.56l399.652571-447.195429a36.571429 36.571429 0 1 0-59.538286-42.569143L512 680.521143z" fill="var(--sidebar-icon)" p-id="8510">
+                </path>
+            </svg>
+
         </component>
 
-        <CollapseTransition :duration="150">
+        <CollapseTransition :duration="150" v-if="isShow">
 
             <ResourceList class="resources-only"
                           v-if="isTopLevel && data.resources.length && (!isTopCollapsible || topExpanded)"
@@ -64,6 +76,11 @@
     </div>
 
 </template>
+<style>
+    .select_light{
+        opacity: 0.6;
+    }
+</style>
 
 <script>
 
@@ -83,7 +100,8 @@
         data() {
             return {
                 topExpanded: this.data.expanded,
-                activeMenu: { [ this.data.id ]: this.data.expanded }
+                activeMenu: { [ this.data.id ]: this.data.expanded },
+                isShow: true
             }
         },
         created() {
@@ -144,6 +162,8 @@
         },
         methods: {
             toggleTopLevel() {
+                // console.log(this.isShow);
+                this.isShow = !this.isShow
                 if (this.isTopCollapsible) {
                     this.topExpanded = !this.topExpanded
                 }
