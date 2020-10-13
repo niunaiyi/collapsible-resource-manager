@@ -13,7 +13,7 @@ Provides an easy way to order and group your resources on the sidebar.
 You can install the package via composer:
 
 ```
-composer require digital-creative/collapsible-resource-manager
+composer require norgeit/collapsible-resource-manager
 ```
 
 Next up, you must register the tool with Nova. This is typically done in the `tools` method of the `NovaServiceProvider.`
